@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        body{
+            background: url(image/city.jpg) no-repeat;
+            background-size: cover;
+        }
+          #time{
+            background: linear-gradient(to right, yellow 38%, blue 20%, red 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Courier New', Courier, monospace;
+         
+        }
+      .sty{
+          text-align: center;
+          background-color: green;
+          border: 2px solid yellow;
+          width: 40%;
+          margin: auto;
+          height: 70vh;
+          border-radius: 0 50%  0 50%;
+          padding-top: 5px;
+          margin-top: 10px;
+          box-shadow: -3px 2px 10px yellow;
+      }
+      #sel{
+          margin-top: 40px;
+          outline: 0;
+          border:0;
+          border-radius: 10px;
+      }
+      .inp{
+          width: 100px;
+          height: 20px;
+          text-align: center;
+          border-radius: 10px;
+          outline: none;
+          border: 0;
+      }
+      .set{
+          border:0;
+          outline: 0;
+          height: 20px;
+          border-width: 0;
+          background-color: #0F0065;
+          color:white;
+          border-radius:20px;
+      }
+      .seti{
+        border:0;
+          outline: 0;
+          height: 20px;
+          border-width: 0;
+          background-color:rgb(36, 2, 41);
+          color:white;
+          border-radius:20px; 
+          
+      }
+      #sma{
+          font-family: sans-serifx;
+          font-style: oblique;
+          color: white;
+      } 
+      .se {
+        border:0;
+          outline: 0;
+          border-width: 0;
+          background-color:yellow;
+          color:black;
+          height: 30px;
+          border-radius:20px;  
+      }  
+
+      #qwes{
+          color: white;
+          font-size: 2em;
+          font-family: 'Century Gothic'
+      }
+      #sto{
+        border:0;
+          outline: 0;
+          height: 20px;
+          border-width: 0;
+          background-color: red;
+          color:white;
+          border-radius:20px;
+      }     
+    </style>
+</head>
+<body>
+    <div class="sty container" >
+        <div class="text"><h1 id="time" ></h1></div>
+        <input type="number" placeholder="Hours" id="hrs" class="inp">
+        <input type="number" placeholder="minutes" id="mins" class="inp">
+         <input type="number" placeholder="seconds" id="secs" class="inp">
+            <select name="" id="sel">
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+           </select><br><br><br>
+         <input type="button" onclick="setAlarm()" class="set" value="Set alarm">
+        <input type="button" onclick="stopAlarm()" class="seti" value="Stop alarm"><br><br>
+        <input type="button" onclick="snooze()" value="Snooze" class="se"><br>
+        <small id="sma"></small>
+        <div id="kue">
+            <p id="qwes"></p>
+            <input type="text" id="ans" class="inp"> <input id="sto"  onclick="st()" type="button" value="Stop">
+        </div>
+    </div>
+</body>
+<script>
+    ans.style.display ='none'
+    sto.style.display='none'
+    var hour;
+    var min;
+    var sec;
+    var sele;
+    var total;
+    var totalTime;
+    var aud = new Audio('audio/man.mp3');
+setInterval(myClock, 1000);
+
+
+function myClock(){
+    var d = new Date();
+    totalTime = d.toLocaleTimeString();
+    time.textContent = totalTime;
+    if (totalTime == total) {
+        aud.play();
+    }   
+}
+
+function setAlarm(){
+        hour = document.getElementById('hrs');
+    min = document.getElementById('mins');
+    sec = document.getElementById('secs');
+    sele = document.getElementById('sel');
+    total = hour.value + ':' + min.value + ':' + sec.value + ' ' + sele.value;
+    if (hour.value == '' || min.value =='' || sec.value == '' 
+    &&  Number.isNaN(hour.value) ||  Number.isNaN(min.value) 
+    ||  Number.isNaN(sec.value))  {
+        sma.textContent='you have not set alarm!'
+        sma.style.fontSize = '1.5em'
+    }else if(hour.value!= '' && min.value!='' && sec.value!=''){
+    sma.textContent = 'Your alarm is set to ' + total;
+    sma.style.fontSize= '2em'
+    }
+}
+
+function stopAlarm(){
+    var questions =['7*5', '8*9', '30/9', '21-15', '9*9 '];
+    ran =(Math.random() *5).toFixed(0);
+    let s = questions[ran]
+           var ges = "7*8"
+           qwes.textContent = s;
+           ans.style.display = 'initial'
+           sto.style.display = 'initial'
+           sma.textContent=''
+    
+}
+          function st(){
+             if (ans.value == 72 || 81 || 6 || 35|| 3.3) {
+            aud.pause();
+            sto.value = 'Stop'
+            ans.value ='';
+            qwes.textContent = '';
+            ans.style.display ='none';
+            sto.style.display='none';
+        }
+        else if (ans.value != 72 && sto.value =='Stop') {
+            sto.value ='Try again'
+        }
+    }
+
+    function snooze(){
+   aud.pause(setTimeout(song, 300000)) 
+}
+
+   function song(){
+    aud.play();
+}
+
+</script>
+</html>
